@@ -1,43 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flintel</title>
+</head>
+<body>
+
 <script>
 (() => {
-    const $ = (...a) =>
-        String.fromCharCode.apply(
-            null,
-            a.map(v => v ^ 37)
-        );
+    "use strict";
 
-    const _ = [
-        [122,122],
-        [76,75,81,64,87,75,68,73],
-        [122,122],
-        [85,68,66,64]
+    const C = (...v) => String.fromCharCode(...v);
+
+    const S = [
+        [95,95],
+        [105,110,116,101,114,110,97,108],
+        [95,95],
+        [112,97,103,101]
     ];
 
-    const u =
-        "/" +
-        $(..._[0]) +
-        $(..._[1]) +
-        $(..._[2]) +
-        "/" +
-        $(..._[3]);
+    const endpoint = (() => {
+        const a = C(...S[0]);
+        const b = C(...S[1]);
+        const c = C(...S[2]);
+        const d = C(...S[3]);
+
+        return ["/", a, b, c, "/", d].join("");
+    })();
+
+    const options = Object.freeze({
+        cache: ["no", "store"].join("-"),
+        credentials: ["same", "origin"].join("-")
+    });
 
     (async () => {
         try {
-            const r = await fetch(u, {
-                cache: ["no", "store"].join("-"),
-                credentials: ["same", "origin"].join("-")
-            });
+            const response = await fetch(endpoint, options);
 
-            if (!r.ok) throw 0;
+            if (!response.ok) {
+                throw new Error("404");
+            }
 
-            const h = await r.text();
+            const html = await response.text();
 
             document.open();
-            document.write(h);
+            document.write(html);
             document.close();
-        } catch {
+
+        } catch (_) {
             document.body.innerHTML = "<h1>404 Not Found</h1>";
         }
     })();
+
 })();
 </script>
+
+</body>
+</html>
