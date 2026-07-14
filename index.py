@@ -12,7 +12,7 @@ app = FastAPI(
     openapi_url=None
 )
 
-templates = Jinja2Templates(directory=".")
+templates = Jinja2Templates(directory="templates")
  
 SECRET = os.getenv("INTERNAL_PAGE_SECRET")
 
