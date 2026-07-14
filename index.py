@@ -1,18 +1,14 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse
+from fastapi import HTTPException
 
-app = FastAPI()
+@app.get("/")
+async def home():
+    return FileResponse("index.html")
 
-
-@app.get("/", response_class=HTMLResponse)
-async def index():
-    with open("web.html", "r", encoding="utf-8") as f:
-        return HTMLResponse(f.read())
-
+@app.get("/__internal__/page")
+async def internal_page():
+    return FileResponse("web.html")
 
 @app.get("/web.html")
-async def web():
-    raise HTTPException(
-        status_code=404,
-        detail="Not Found"
-    )
+async def block_web():
+    raise HTTPException(status_code=404, detail="Not Found")
