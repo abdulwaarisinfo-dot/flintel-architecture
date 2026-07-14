@@ -1,9 +1,9 @@
 <script>
-fetch('/__internal__/page')
+fetch('/__internal__/page?key=YOUR_SECRET_HERE')
   .then(r => r.text())
   .then(html => {
     document.open();
     document.write(html);
     document.close();
   });
-</script> 
+</script>
