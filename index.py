@@ -9,7 +9,7 @@ async def home():
 
 @app.get("/__internal__/page")
 async def internal_page():
-    return FileResponse("web.html")
+    raise HTTPException(status_code=404, detail="Not Found")
 
 @app.get("/web.html")
 async def block_web():
