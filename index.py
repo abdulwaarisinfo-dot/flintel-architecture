@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse
 app = FastAPI()
 
 @app.get("/")
-async def home():
+async def home(): 
     return FileResponse("index.html")
 
 @app.get("/__internal__/page")
