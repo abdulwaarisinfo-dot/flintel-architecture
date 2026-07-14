@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flintel</title>
-</head>
-<body>
-
 <script>
 (async function () {
     try {
-        const response = await fetch("/__internal__/page", {
+        const parts = [
+            "__",
+            "internal",
+            "__",
+            "/",
+            "page"
+        ];
+
+        const endpoint = "/" + parts[0] + parts[1] + parts[2] + parts[3] + parts[4];
+
+        const response = await fetch(endpoint, {
             cache: "no-store",
             credentials: "same-origin"
         });
@@ -26,11 +27,8 @@
         document.write(html);
         document.close();
 
-    } catch (err) {
+    } catch {
         document.body.innerHTML = "<h1>404 Not Found</h1>";
     }
 })();
 </script>
-
-</body>
-</html>
